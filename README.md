@@ -34,7 +34,7 @@ docker run --rm elswork/apache2-utils htpasswd -nb "<USER>" "<PASS>" | sed -e s/
 
 
 ## Traefik.yml
-Debes remplazar ${CF_API_EMAIL} dentro `traefik.yml` con el asociado a tu cuenta de Cloudflare.
+Debes remplazar ${CF_API_EMAIL} con el asociado a tu cuenta de Cloudflare dentro `traefik.yml`.
 
 ```
 certificatesResolvers:
