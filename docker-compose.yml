@@ -21,6 +21,9 @@ services:
       - ./data/traefik.yml:/traefik.yml:ro
       - ./data/acme.json:/acme.json
       - ./data/config.yml:/config.yml:ro
+     
+    # Bloque opcional
+    # Este segmento "labels" es opcional, solo dejalo si deseas exponer el panel de traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
@@ -37,7 +40,7 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=${BASE_SUBDOMAIN}"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${BASE_SUBDOMAIN}"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-
+    # Fin de Bloque opcional
 networks:
   proxy:
     external: true
