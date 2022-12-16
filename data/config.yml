@@ -1,16 +1,17 @@
 http:
  #region routers
   routers:
-    example:
+    example-dynamic:
       entryPoints:
         - "https"
       rule: "Host(`example.subdomain.domain.com`)"
       middlewares:
         - default-headers
-      tls: {}
-      service: webtop
+      tls:
+        certResolver: "cloudflare"
+      service: example-dynamic-service
   services:
-    webtop:
+    example-dynamic-service:
       loadBalancer:
         servers:
           - url: "https://172.19.0.222:3000/"
