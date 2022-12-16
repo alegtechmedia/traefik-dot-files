@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  example-service:
+    image: example:latest
+    restart: always
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.example-service.entrypoints=http"
+      - "traefik.http.routers.example-service.rule=Host(`example.com`)"
+      - "traefik.http.middlewares.example-service-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.example-service.middlewares=example-service-https-redirect"
+      - "traefik.http.routers.example-service-secure.entrypoints=https"
+      - "traefik.http.routers.example-service-secure.rule=Host(`example.com`)"
+      - "traefik.http.routers.example-service-secure.tls=true"
+      - "traefik.http.routers.example-service-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.example-service-secure.service=example-service"
+      - "traefik.http.services.example-service.loadbalancer.server.port=443"
+      - "traefik.docker.network=proxy"
+networks:
+  proxy:
+    external: true
